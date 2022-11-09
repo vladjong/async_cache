@@ -20,6 +20,8 @@ func Test_CacheWithMetric(t *testing.T) {
 		storedValue, err := testCache.Get(key)
 		assert.NoError(t, err)
 		assert.Equal(t, value, storedValue)
+		err = testCache.Delete(key)
+		assert.NoError(t, err)
 	})
 
 	t.Run("no data races", func(t *testing.T) {

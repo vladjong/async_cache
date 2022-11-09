@@ -3,7 +3,7 @@ package bench
 import (
 	"testing"
 
-	"github.com/vladjong/async_cache/cache"
+	mutextcache "github.com/vladjong/async_cache/mutext_cache"
 	simplecache "github.com/vladjong/async_cache/simple_cache"
 )
 
@@ -18,14 +18,14 @@ func Benchmark_NoMutex(b *testing.B) {
 }
 
 func Benchmark_RWMutexLoad(b *testing.B) {
-	c := cache.NewCache()
+	c := mutextcache.NewCache()
 	for i := 0; i < b.N; i++ {
 		emulatedLoad(c, parallelFactor)
 	}
 }
 
 func Benchmark_RWMutexReadLoad(b *testing.B) {
-	c := cache.NewCache()
+	c := mutextcache.NewCache()
 	for i := 0; i < b.N; i++ {
 		emulatedReadLoad(c, parallelFactor)
 	}

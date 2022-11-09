@@ -4,11 +4,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	mutextcache "github.com/vladjong/async_cache/mutext_cache"
 )
 
 func Test_Cache(t *testing.T) {
 	t.Parallel()
-	testCache := mu
+	testCache := mutextcache.NewCache()
 
 	t.Run("correctly stored value", func(t *testing.T) {
 		t.Parallel()
@@ -19,6 +20,8 @@ func Test_Cache(t *testing.T) {
 		storedValue, err := testCache.Get(key)
 		assert.NoError(t, err)
 		assert.Equal(t, value, storedValue)
+		err = testCache.Delete(key)
+		assert.NoError(t, err)
 	})
 
 	t.Run("no data races", func(t *testing.T) {
